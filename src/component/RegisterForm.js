@@ -1,29 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigationBar } from '../Layout/NavigationBar';
 import { Layout } from '../Layout/Layout';
 import { Form, FormControl } from 'react-bootstrap';
 import { Button, Col, InputGroup } from 'react-bootstrap';
 import { FormGroup, ControlLabel } from "react-bootstrap";
-import DatePicker from 'react-datepicker';
-
-// import { yup } from 'yup';
-
-// const schema = yup.object({
-//   firstName: yup.string().required(),
-//   lastName: yup.string().required(),
-//   username: yup.string().required(),
-//   city: yup.string().required(),
-//   state: yup.string().required(),
-//   zip: yup.string().required(),
-//   terms: yup.bool().required(),
-// });
+// import DatePicker from 'react-date-picker';
+import '../Styles/RegisterForm.css';
 
 class RegisterForm extends React.Component {
-  render() {
-    // const [date, setDate] = useState(new Date());
 
-    const handleCalendarClose = () => console.log("Calendar closed");
-    const handleCalendarOpen = () => console.log("Calendar opened");
+  constructor(props) {
+    super(props);
+    this.state = {
+      custName: '',
+      age: '',
+      dob: '',
+      serviceOffName: '',
+      nric: '',
+      branchCode: '',
+      imagePath: '',
+      prodType: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange = (opcode) => (event) => {
+    console.log(event.target.value);
+    this.setState({ [opcode]: event.target.value });
+  };
+
+  handleSubmit(event) {
+    event.preventDefault();
+    var data = {};
+    data.custName = this.state.custName;
+    data.age = this.state.age;
+    data.dob = this.state.dob;
+    data.serviceOffName = this.state.serviceOffName;
+    data.nric = this.state.nric;
+    data.branchCode = this.state.branchCode;
+    data.imagePath = this.state.imagePath;
+    data.prodType = this.state.prodType;
+
+    console.log("Customer Name: " + data.custName);
+  }
+
+  postToServer = (custName, age, dob, serviceOffName, nric, branchCode, imagePath, prodType) => {
+    fetch("/", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify({ custName: custName, age: age, dob:dob, serviceOffName:serviceOffName, nric:nric, branchCode:branchCode, imagePath:imagePath, prodType:prodType }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        console.log("do something");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  render() {
     return(
       <div>
           <NavigationBar/>
@@ -36,10 +75,10 @@ class RegisterForm extends React.Component {
                       <Form.Label>Customer name</Form.Label>
                       <Form.Control
                         type="text"
-                        name="CustName"
+                        name="custName"
                         placeholder="Customer Name"
-                        // value={values.custName}
-                        // onChange={handleChange}
+                        value={this.state.custName}
+                        onChange={this.handleChange("custName")}
                         // isValid={touched.custName && !errors.custName}
                       />
                       <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -50,6 +89,8 @@ class RegisterForm extends React.Component {
                         type="text"
                         name="age"
                         placeholder="Age"
+                        value={this.state.age}
+                        onChange={this.handleChange("age")}
                         // value={values.age}
                         // onChange={handleChange}
                         // isValid={touched.age && !errors.age}
@@ -62,9 +103,11 @@ class RegisterForm extends React.Component {
                       <InputGroup>
                         <Form.Control
                           type="text"
-                          placeholder="Date of Birth"
+                          placeholder="dd/MM/YYYY"
                           aria-describedby="inputGroupPrepend"
                           name="dob"
+                          value={this.state.dob}
+                          onChange={this.handleChange("dob")}
                           // value={values.dob}
                           // onChange={handleChange}
                           // isInvalid={!!errors.dob}
@@ -74,11 +117,9 @@ class RegisterForm extends React.Component {
                         </Form.Control.Feedback>
                       </InputGroup>
                       {/* <DatePicker
-                        // selected={date}
-                        // onChange={date => setDate(date)}
-                        onCalendarClose={handleCalendarClose}
-                        onCalendarOpen={handleCalendarOpen}
-                        /> */}
+                        onChange={onChange}
+                        value={value}
+                      /> */}
                     </Form.Group>
                   </Form.Row>
                   <Form.Row>
@@ -88,6 +129,8 @@ class RegisterForm extends React.Component {
                         type="text"
                         placeholder="Service Officer Name"
                         name="serviceOfficerName"
+                        value={this.state.serviceOffName}
+                        onChange={this.handleChange("serviceOffName")}
                         // value={values.serviceOfficerName}
                         // onChange={handleChange}
                         // isInvalid={!!errors.serviceOfficerName}
@@ -103,6 +146,8 @@ class RegisterForm extends React.Component {
                         type="text"
                         placeholder="Nric"
                         name="nric"
+                        value={this.state.nric}
+                        onChange={this.handleChange("nric")}
                         // value={values.nric}
                         // onChange={handleChange}
                         // isInvalid={!!errors.nric}
@@ -117,6 +162,8 @@ class RegisterForm extends React.Component {
                         type="text"
                         placeholder="Branch Code"
                         name="branchCode"
+                        value={this.state.branchCode}
+                        onChange={this.handleChange("branchCode")}
                         // value={values.branchCode}
                         // onChange={handleChange}
                         // isInvalid={!!errors.branchCode}
@@ -134,6 +181,8 @@ class RegisterForm extends React.Component {
                         required
                         name="file"
                         label="Image File"
+                        value={this.state.imagePath}
+                        onChange={this.handleChange("imagePath")}
                         // onChange={handleChange}
                         // isInvalid={!!errors.file}
                         // feedback={errors.file}
@@ -146,9 +195,11 @@ class RegisterForm extends React.Component {
                         <InputGroup>
                           <Form.Control
                             type="text"
-                            placeholder="Date of Birth"
+                            placeholder="Product Type"
                             aria-describedby="inputGroupPrepend"
-                            name="dob"
+                            name="prodType"
+                            value={this.state.prodType}
+                            onChange={this.handleChange("prodType")}
                             // value={values.dob}
                             // onChange={handleChange}
                             // isInvalid={!!errors.dob}
@@ -160,8 +211,11 @@ class RegisterForm extends React.Component {
                     </Form.Group>
                   </Form.Row>
 
-                  <Button type="submit">Register</Button>
-                  <Button type="submit">Save Draft</Button>
+                  <Button type="submit" onClick={() => {
+                          console.log("clicked");
+                          console.log(this.state);
+                        }}>Register</Button>
+                  <Button id="saveDraft" type="submit">Save Draft</Button>
                 </Form>
           </Layout>
       </div>
