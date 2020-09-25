@@ -11,14 +11,14 @@ class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      custName: "andrea",
-      age: "12",
+      custName: "",
+      age: "",
       dob: new Date(),
-      serviceOffName: "asd",
+      serviceOffName: "",
       nric: "asda",
-      branchCode: 123,
+      branchCode: "123",
       imagePath: "",
-      prodType: "af",
+      prodType: "",
     };
   }
 
@@ -26,21 +26,6 @@ class RegisterForm extends React.Component {
     const value = opcode === "dob" ? event : event.target.value;
     this.setState({ [opcode]: value });
   };
-
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   var data = {};
-  //   data.custName = this.state.custName;
-  //   data.age = this.state.age;
-  //   data.dob = this.state.dob;
-  //   data.serviceOffName = this.state.serviceOffName;
-  //   data.nric = this.state.nric;
-  //   data.branchCode = this.state.branchCode;
-  //   data.imagePath = this.state.imagePath;
-  //   data.prodType = this.state.prodType;
-
-  //   console.log("Customer Name: " + data.custName);
-  // }
 
   // postToServer = (
   //   custName,
@@ -144,7 +129,7 @@ class RegisterForm extends React.Component {
           <Form.Group>
             <Form.File
               className="position-relative"
-              // required
+              required
               name="file"
               label="Image File"
               value={this.state.imagePath}

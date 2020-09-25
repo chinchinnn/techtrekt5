@@ -7,11 +7,26 @@ import RegisterForm from "./RegisterForm";
 export class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = { loginStatus: false };
+    this.state = { loginStatus: false, data: {} };
   }
 
-  handleLogin = () => {
-    this.setState({ loginStatus: !this.state.loginStatus });
+  handleLogin = (data) => {
+    fetch(
+      "https://cors-anywhere.herokuapp.com/http://08872c2caafe.ngrok.io/login/",
+      {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+      .then((res) => res.json())
+      .then((body) => {
+        this.setState({ loginStatus: !this.state.loginStatus, data: body });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
