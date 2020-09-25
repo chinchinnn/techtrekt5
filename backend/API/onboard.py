@@ -6,26 +6,7 @@ app.debug = True
 
 @app.before_request
 def authenticate():
-    # return 
-    ####### commented out for now
-    # if 'Authorization' in request.headers:
-    if True:
-        url = "http://techtrek2020.ap-southeast-1.elasticbeanstalk.com/login"
-        data = {
-            "username": "cellinntng",
-	        "password": "a4d77eac59d8f7db"
-        }
-        authorized = requests.post(url, data=data)
-        if authorized.status_code != 200:
-            return {
-                "status": 403,
-                "error": "Forbidden Invalid JWT or Expired JWT"
-            }, 403
-    else:
-        return {
-            "status": 401,
-            "error": "Unauthorized - Missing JWT"
-        }, 401
+    return
 
 def valid_cust_name(name):
     return len(name) > 0 and len(name) <= 64 and name.isalpha()
