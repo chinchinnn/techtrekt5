@@ -1,30 +1,23 @@
-import React, {Component} from 'react';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Form, FormControl } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+import React, { Component } from "react";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Form, FormControl } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export class NavigationBar extends Component {
-
-    render(){
-        return(
-            <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="/home">DBS</Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Nav.Link href="/home">Home</Nav.Link>
-                    <Nav.Link href="/about">New Application</Nav.Link>
-                    {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="/">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="/">Another action</NavDropdown.Item>
-                        <NavDropdown.Item href="/">Something</NavDropdown.Item>
-                    </NavDropdown> */}
-                </Nav>
-                <Form inline>
-                    <Button variant="outline-info">Logout</Button>
-                </Form>
-            </Navbar>
-            )
-    }
+  render() {
+    return (
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="/">DBS</Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/user">Add New Application</Nav.Link>
+        </Nav>
+        <Form inline>
+          <Button variant="outline-info">Logout</Button>
+        </Form>
+      </Navbar>
+    );
+  }
 }
 
 export default NavigationBar;
-
