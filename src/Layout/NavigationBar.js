@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Form, FormControl } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 export class NavigationBar extends Component {
 
@@ -16,6 +18,9 @@ export class NavigationBar extends Component {
                         <NavDropdown.Item href="/">Something</NavDropdown.Item>
                     </NavDropdown> */}
                 </Nav>
+                <Form inline>
+                    <Button variant="outline-info">Logout</Button>
+                </Form>
             </Navbar>
             )
     }

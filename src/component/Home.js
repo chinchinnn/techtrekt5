@@ -12,7 +12,6 @@ export class Home extends Component {
                 <Layout>
                     <br/>
                     <h2>Welcome Back</h2>
-
                 </Layout>
             </div>
         )
