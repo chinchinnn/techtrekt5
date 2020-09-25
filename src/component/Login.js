@@ -1,27 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { username: "", password: "" };
+  }
+
+  // update states upon changes to input form
+  handleChange = (opcode) => (event) => {
+    console.log(event.target.value);
+    this.setState({ [opcode]: event.target.value });
+  };
+
+  postToServer = (username, password) => {
+    fetch("/", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify({ url: url, storyId: storyId }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        console.log("do something");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <Form>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Username"
+            aria-describedby="inputGroupPrepend"
+            name="username"
+            value={this.state.username}
+            onChange={this.handleChange("username")}
+            // isInvalid={!!errors.dob}
+          />
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={this.state.password}
+            onChange={this.handleChange("password")}
+          />
         </Form.Group>
         <Form.Group controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button
+          variant="primary"
+          onClick={() => {
+            console.log("clicked");
+            console.log(this.state);
+          }}
+        >
           Submit
         </Button>
       </Form>
