@@ -11,73 +11,70 @@ class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      custName: "",
-      age: "",
-      dob: "",
-      serviceOffName: "",
-      nric: "",
-      branchCode: "",
+      custName: "andrea",
+      age: "12",
+      dob: new Date(),
+      serviceOffName: "asd",
+      nric: "asda",
+      branchCode: 123,
       imagePath: "",
-      prodType: "",
+      prodType: "af",
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange = (opcode) => (event) => {
-    console.log(event.target.value);
-    this.setState({ [opcode]: event.target.value });
+    const value = opcode === "dob" ? event : event.target.value;
+    this.setState({ [opcode]: value });
   };
 
-  handleSubmit(event) {
-    event.preventDefault();
-    var data = {};
-    data.custName = this.state.custName;
-    data.age = this.state.age;
-    data.dob = this.state.dob;
-    data.serviceOffName = this.state.serviceOffName;
-    data.nric = this.state.nric;
-    data.branchCode = this.state.branchCode;
-    data.imagePath = this.state.imagePath;
-    data.prodType = this.state.prodType;
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //   var data = {};
+  //   data.custName = this.state.custName;
+  //   data.age = this.state.age;
+  //   data.dob = this.state.dob;
+  //   data.serviceOffName = this.state.serviceOffName;
+  //   data.nric = this.state.nric;
+  //   data.branchCode = this.state.branchCode;
+  //   data.imagePath = this.state.imagePath;
+  //   data.prodType = this.state.prodType;
 
-    console.log("Customer Name: " + data.custName);
-  }
+  //   console.log("Customer Name: " + data.custName);
+  // }
 
-  postToServer = (
-    custName,
-    age,
-    dob,
-    serviceOffName,
-    nric,
-    branchCode,
-    imagePath,
-    prodType
-  ) => {
-    fetch("/", {
-      method: "POST",
-      mode: "cors",
-      body: JSON.stringify({
-        custName: custName,
-        age: age,
-        dob: dob,
-        serviceOffName: serviceOffName,
-        nric: nric,
-        branchCode: branchCode,
-        imagePath: imagePath,
-        prodType: prodType,
-      }),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((body) => {
-        console.log("do something");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // postToServer = (
+  //   custName,
+  //   age,
+  //   dob,
+  //   serviceOffName,
+  //   nric,
+  //   branchCode,
+  //   imagePath,
+  //   prodType
+  // ) => {
+  //   fetch("/", {
+  //     method: "POST",
+  //     mode: "cors",
+  //     body: JSON.stringify({
+  //       custName: custName,
+  //       age: age,
+  //       dob: dob,
+  //       serviceOffName: serviceOffName,
+  //       nric: nric,
+  //       branchCode: branchCode,
+  //       imagePath: imagePath,
+  //       prodType: prodType,
+  //     }),
+  //     headers: { "Content-Type": "application/json" },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((body) => {
+  //       console.log("do something");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   render() {
     return (
@@ -91,47 +88,24 @@ class RegisterForm extends React.Component {
               placeholder="Customer Name"
               value={this.state.custName}
               onChange={this.handleChange("custName")}
-              // isValid={touched.custName && !errors.custName}
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationFormik02">
             <Form.Label>Age</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               name="age"
               placeholder="Age"
               value={this.state.age}
               onChange={this.handleChange("age")}
-              // value={values.age}
-              // onChange={handleChange}
-              // isValid={touched.age && !errors.age}
             />
-
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationFormikUsername">
             <Form.Label>Date of Birth</Form.Label>
-            <InputGroup>
-              <Form.Control
-                type="text"
-                placeholder="dd/MM/YYYY"
-                aria-describedby="inputGroupPrepend"
-                name="dob"
-                value={this.state.dob}
-                onChange={this.handleChange("dob")}
-                // value={values.dob}
-                // onChange={handleChange}
-                // isInvalid={!!errors.dob}
-              />
-              <Form.Control.Feedback type="invalid">
-                {/* {errors.dob} */}
-              </Form.Control.Feedback>
-            </InputGroup>
-            {/* <DatePicker
-                        onChange={onChange}
-                        value={value}
-                      /> */}
+            <DatePicker
+              onChange={this.handleChange("dob")}
+              selected={this.state.dob}
+            />
           </Form.Group>
         </Form.Row>
         <Form.Row>
@@ -143,14 +117,7 @@ class RegisterForm extends React.Component {
               name="serviceOfficerName"
               value={this.state.serviceOffName}
               onChange={this.handleChange("serviceOffName")}
-              // value={values.serviceOfficerName}
-              // onChange={handleChange}
-              // isInvalid={!!errors.serviceOfficerName}
             />
-
-            <Form.Control.Feedback type="invalid">
-              {/* {errors.serviceOfficerName} */}
-            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="3" controlId="validationFormik04">
             <Form.Label>NRIC</Form.Label>
@@ -160,46 +127,29 @@ class RegisterForm extends React.Component {
               name="nric"
               value={this.state.nric}
               onChange={this.handleChange("nric")}
-              // value={values.nric}
-              // onChange={handleChange}
-              // isInvalid={!!errors.nric}
             />
-            <Form.Control.Feedback type="invalid">
-              {/* {errors.branchCode} */}
-            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="3" controlId="validationFormik05">
             <Form.Label>Branch Code</Form.Label>
             <Form.Control
-              type="text"
+              type="number"
               placeholder="Branch Code"
               name="branchCode"
               value={this.state.branchCode}
               onChange={this.handleChange("branchCode")}
-              // value={values.branchCode}
-              // onChange={handleChange}
-              // isInvalid={!!errors.branchCode}
             />
-
-            <Form.Control.Feedback type="invalid">
-              {/* {errors.branchCode} */}
-            </Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
         <Form.Row>
           <Form.Group>
             <Form.File
               className="position-relative"
-              required
+              // required
               name="file"
               label="Image File"
               value={this.state.imagePath}
               onChange={this.handleChange("imagePath")}
-              // onChange={handleChange}
-              // isInvalid={!!errors.file}
-              // feedback={errors.file}
               id="validationFormik107"
-              feedbackTooltip
             />
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationFormikUsername">
@@ -212,25 +162,18 @@ class RegisterForm extends React.Component {
                 name="prodType"
                 value={this.state.prodType}
                 onChange={this.handleChange("prodType")}
-                // value={values.dob}
-                // onChange={handleChange}
-                // isInvalid={!!errors.dob}
               />
-              <Form.Control.Feedback type="invalid">
-                {/* {errors.dob} */}
-              </Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
         </Form.Row>
-
         <Button
-          type="submit"
+          variant="primary"
           onClick={() => {
-            console.log("clicked");
+            console.log("Send request to server");
             console.log(this.state);
           }}
         >
-          Register
+          Submit
         </Button>
         <Button id="saveDraft" type="submit">
           Save Draft

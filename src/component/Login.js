@@ -8,7 +8,6 @@ class Login extends React.Component {
     this.state = { username: "", password: "" };
   }
 
-  // update states upon changes to input form
   handleChange = (opcode) => (event) => {
     console.log(event.target.value);
     this.setState({ [opcode]: event.target.value });
