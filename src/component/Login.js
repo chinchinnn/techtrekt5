@@ -18,7 +18,7 @@ class Login extends React.Component {
     fetch("/", {
       method: "POST",
       mode: "cors",
-      body: JSON.stringify({ url: url, storyId: storyId }),
+      body: JSON.stringify({ username: username, password: password }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
