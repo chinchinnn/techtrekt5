@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { NavigationBar } from '../Layout/NavigationBar';
-import { Layout } from '../Layout/Layout';
-import { Form, FormControl } from 'react-bootstrap';
-import { Button, Col, InputGroup } from 'react-bootstrap';
+import React from "react";
+import { NavigationBar } from "../Layout/NavigationBar";
+import { Layout } from "../Layout/Layout";
+import { Form, FormControl } from "react-bootstrap";
+import { Button, Col, InputGroup } from "react-bootstrap";
 import { FormGroup, ControlLabel } from "react-bootstrap";
-// import DatePicker from 'react-date-picker';
-import '../Styles/RegisterForm.css';
+import DatePicker from "react-datepicker";
+
 
 class RegisterForm extends React.Component {
 
@@ -64,11 +64,7 @@ class RegisterForm extends React.Component {
 
   render() {
     return(
-      <div>
-          <NavigationBar/>
-          <Layout>
-              <br/>
-              <h2>Register New Customer</h2>
+
               <Form>
                   <Form.Row>
                     <Form.Group as={Col} md="4" controlId="validationFormik01">
@@ -217,8 +213,6 @@ class RegisterForm extends React.Component {
                         }}>Register</Button>
                   <Button id="saveDraft" type="submit">Save Draft</Button>
                 </Form>
-          </Layout>
-      </div>
   )
   }
 }

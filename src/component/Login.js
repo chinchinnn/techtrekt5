@@ -62,8 +62,9 @@ class Login extends React.Component {
         <Button
           variant="primary"
           onClick={() => {
-            console.log("clicked");
+            console.log("Send request to server");
             console.log(this.state);
+            this.props.handleLogin();
           }}
         >
           Submit
