@@ -4,6 +4,7 @@ import { Layout } from "../Layout/Layout";
 import { Form, FormControl } from "react-bootstrap";
 import { Button, Col, InputGroup } from "react-bootstrap";
 import { FormGroup, ControlLabel } from "react-bootstrap";
+import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 
 // import { yup } from 'yup';
@@ -55,25 +56,11 @@ class RegisterForm extends React.Component {
           <Form.Group as={Col} md="4" controlId="validationFormikUsername">
             <Form.Label>Date of Birth</Form.Label>
             <InputGroup>
-              <Form.Control
-                type="text"
-                placeholder="Date of Birth"
-                aria-describedby="inputGroupPrepend"
-                name="dob"
-                // value={values.dob}
-                // onChange={handleChange}
-                // isInvalid={!!errors.dob}
+              <DatePicker
+                selected={new Date()}
+                onChange={(date) => console.log(date)}
               />
-              <Form.Control.Feedback type="invalid">
-                {/* {errors.dob} */}
-              </Form.Control.Feedback>
             </InputGroup>
-            {/* <DatePicker
-                        // selected={date}
-                        // onChange={date => setDate(date)}
-                        onCalendarClose={handleCalendarClose}
-                        onCalendarOpen={handleCalendarOpen}
-                        /> */}
           </Form.Group>
         </Form.Row>
         <Form.Row>

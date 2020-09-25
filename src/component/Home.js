@@ -22,7 +22,7 @@ export class Home extends Component {
     );
     return (
       <div>
-        <NavigationBar />
+        <NavigationBar loginStatus={this.state.loginStatus} />
         <Layout>{displayLogic}</Layout>
       </div>
     );
